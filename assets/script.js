@@ -95,7 +95,7 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
 
             //create img tag and assign the weather icon to it
             var cityHeaderImgTag = $('<img>');
-            var todayIconUrl = `https://openweathermap.org/img/wn/${response.list[0].weather[0].icon}.png`;
+            var todayIconUrl = `http://openweathermap.org/img/wn/${response.list[0].weather[0].icon}.png`;
             cityHeaderImgTag.attr('src', todayIconUrl);
             cityHeaderImgTag.attr('alt', 'Weather Forecast Icon Display');
             cityHeaderImgTag.attr('id', 'todayWeatherIcon');
@@ -109,7 +109,7 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
                 dateText = dateText.split(' ');
                 dateText = dateText[0];
 
-                var iconUrl = `https://openweathermap.org/img/wn/${response.list[i].weather[0].icon}.png`;
+                var iconUrl = `http://openweathermap.org/img/wn/${response.list[i].weather[0].icon}.png`;
 
                 var temp = response.list[i].main.temp;
                 var wind = response.list[i].wind.speed;
