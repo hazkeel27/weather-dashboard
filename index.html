@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--css linked-->
+    <link rel="stylesheet" href="./assets/style.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
+    crossorigin="anonymous">
+
+    <title>Weather Dashboard</title>
+</head>
+<body>
+
+        <div class="row">
+
+          <div class="col-md-3 border">
+            <div class="left-div">
+
+                <div class="p-2 g-col-6 border">
+                    <h1 class="display-5">Search for a City:</h1>
+                    
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="San Diego">
+                    </div>
+
+                    <div class="p-2 g-col-6 d-grid gap-2 border">
+                        <button type="button" class="btn btn-outline-success">Search</button>
+                    </div>
+
+                    <hr>
+                </div>
+        
+                <div class="p-2 g-col-6 d-grid gap-2 border">
+                    <button type="button" class="btn btn-outline-primary">San Diego</button>
+                    <button type="button" class="btn btn-outline-primary">Florida</button>
+                </div>
+              
+            </div>
+          </div>
+
+          <div class="col-md-9 border">
+            <div class="right-div">
+
+                <div class="p-2 g-col-6 border">
+                    <h2 class="display-5">San Diego (7/9/2023)</h2>
+                    <hr>
+                    Temp: <span></span> °F
+                    <hr>
+                    Wind: <span></span> MPH
+                    <hr>
+                    Humidity: <span></span> %
+
+                </div>
+                
+                <div class="p-2 g-col-6 border">
+                    <h2 class="display-6">5-Day Forecast</h2>
+
+                    <div class="d-flex flex-wrap justify-content-center gap-2 border">
+                        <div class="col-2 col-md-2 text-center border">
+                            1
+                        </div>
+                        <div class="col-2 col-md-2 text-center border">
+                            2
+                        </div>
+                        <div class="col-2 col-md-2 text-center border">
+                            3
+                        </div>
+                        <div class="col-2 col-md-2 text-center border">
+                            4
+                        </div>
+                        <div class="col-2 col-md-2 text-center border">
+                            5
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+        
+        </div>
+
+    
+
+
+
+    <script src="./assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
+    crossorigin="anonymous"></script>
+
+</body>
+</html>
