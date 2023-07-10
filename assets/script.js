@@ -10,6 +10,7 @@ var todayHumidity = $('#todayHumidity');
 var fiveDayContainer = $('#fiveDayContainer');
 var cityHeader = $('#cityHeader');
 
+
 //render current day on the top of the webpage
 function renderCurrentDay() {
     var today = dayjs();
@@ -24,19 +25,29 @@ function formSubmitHandler(event) {
     geocodingApi();
 }
 
-function getCityName() {
-    var cityName;
+function cityButtonHandler() {
+    
+}
 
-    cityName = inputTag.val()
-
-    return cityName;
+function getLocalstorageCities() {
+    for (var i=0; i<localStorage.length; i++) {
+        var key = localStorage.key(i);
+        var value = localStorage.getItem(key);
+        
+        var cityButton = $('<button></button>');
+        cityButton.attr('type', 'button');
+        cityButton.addClass('btn btn-outline-primary');
+        cityButton.text(value.substring(1, value.length - 1));
+        savedCityList.append(cityButton);
+    }
 }
 
 function geocodingApi() {
-    var inputTagValue = getCityName();
+    var inputTagValue = inputTag.val();
     var cityNameApi;
     var longitudeApi;
     var latitudeApi;
+    var stateApi;
 
     var apiKey = `471cc655335aaaad32557e7ce7d71113`;
     var geocodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${inputTagValue}&limit=1&appid=${apiKey}`;
@@ -49,10 +60,11 @@ function geocodingApi() {
             cityNameApi = response[0].name;
             longitudeApi = response[0].lon;
             latitudeApi = response[0].lat;
+            stateApi = response[0].state;
 
             searchedCity.text(cityNameApi);
 
-            weatherForecastApi(cityNameApi, longitudeApi, latitudeApi);
+            weatherForecastApi(cityNameApi, longitudeApi, latitudeApi, stateApi);
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log('Error:', textStatus, errorThrown);
@@ -60,7 +72,7 @@ function geocodingApi() {
       });
 }
 
-function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
+function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi, stateApi) {
 
     var apiKey = `471cc655335aaaad32557e7ce7d71113`;
     var weatherForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitudeApi}&lon=${longitudeApi}&units=imperial&appid=${apiKey}`;
@@ -70,6 +82,8 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
         method: 'GET',
         dataType: 'json',
         success: function(response) {
+
+            localStorage.setItem(stateApi, JSON.stringify(cityNameApi));
 
             todayTemp.text(`${response.list[0].main.temp} °F`);
             todayWind.text(`${response.list[0].wind.speed} MPH`);
@@ -134,10 +148,7 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
                 div.append(hrTag5);
 
                 fiveDayContainer.append(div);
-
-                console.log(`Date: ${dateText}, Temp: ${temp}, Humidity: ${humidity}, Wind: ${wind}`);
             }
-            console.log(response);
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log('Error:', textStatus, errorThrown);
@@ -145,12 +156,10 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
       });
 }
 
-
-
-
 //function runs on page load
 $(function () {
+    getLocalstorageCities();
     renderCurrentDay();
     userForm.on('submit', formSubmitHandler);
-
+    savedCityList.on('click', cityButtonHandler);
 });
