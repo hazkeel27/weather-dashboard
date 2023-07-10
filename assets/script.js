@@ -16,7 +16,6 @@ var cityHeader = $('#cityHeader');
 function renderCurrentDay() {
     var today = dayjs();
     todayDate.text(today.format('M/D/YYYY'));
-
 }
 
 //function to run once name is searched
@@ -49,7 +48,6 @@ function geocodingApi(inputTagValue) {
     var cityNameApi;
     var longitudeApi;
     var latitudeApi;
-    var stateApi;
 
     var apiKey = `471cc655335aaaad32557e7ce7d71113`;
     var geocodingUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${inputTagValue}&limit=1&appid=${apiKey}`;
@@ -85,9 +83,21 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
         dataType: 'json',
         success: function(response) {
 
-            var randKey = Math.floor(Math.random() * 900) + 100;
+            //check for duplicates in local storage
+            $(function() {
+                var randKey = Math.floor(Math.random() * 900) + 100;
 
-            localStorage.setItem(randKey, JSON.stringify(cityNameApi));
+                for (var i=0; i<localStorage.length; i++) {
+                    var key = localStorage.key(i);
+                    var value = localStorage.getItem(key);
+
+                    if (value === cityNameApi) {
+                        return;
+                    }
+                }
+                localStorage.setItem(randKey, JSON.stringify(cityNameApi));
+            });
+
 
             todayTemp.text(`${response.list[0].main.temp} °F`);
             todayWind.text(`${response.list[0].wind.speed} MPH`);
