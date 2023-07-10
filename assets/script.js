@@ -1,3 +1,4 @@
+//assinged all IDs to variables
 var userForm = $('#userForm');
 var inputTag = $('#inputTag');
 var searchButton = $('#searchButton');
@@ -18,18 +19,18 @@ function renderCurrentDay() {
 
 }
 
+//function to run once name is searched
 function formSubmitHandler(event) {
     event.preventDefault();
+    
+    //empty the 5-day forecast and forecast icon
     fiveDayContainer.empty();
     cityHeader.find('img').remove();
     var inputTagValue = inputTag.val();
     geocodingApi(inputTagValue);
 }
 
-//function cityButtonHandler(this) {
-
-//}
-
+//retrieve cities from local storage and display on webpage as buttons
 function getLocalstorageCities() {
     for (var i=0; i<localStorage.length; i++) {
         var key = localStorage.key(i);
@@ -43,6 +44,7 @@ function getLocalstorageCities() {
     }
 }
 
+//retrieve the longitude and latidude using the geocoding API
 function geocodingApi(inputTagValue) {
     var cityNameApi;
     var longitudeApi;
@@ -60,11 +62,10 @@ function geocodingApi(inputTagValue) {
             cityNameApi = response[0].name;
             longitudeApi = response[0].lon;
             latitudeApi = response[0].lat;
-            stateApi = response[0].state;
 
             searchedCity.text(cityNameApi);
 
-            weatherForecastApi(cityNameApi, longitudeApi, latitudeApi, stateApi);
+            weatherForecastApi(cityNameApi, longitudeApi, latitudeApi);
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log('Error:', textStatus, errorThrown);
@@ -72,7 +73,8 @@ function geocodingApi(inputTagValue) {
       });
 }
 
-function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi, stateApi) {
+//get the weather forecast of the searched location using the longitude and latitude
+function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
 
     var apiKey = `471cc655335aaaad32557e7ce7d71113`;
     var weatherForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitudeApi}&lon=${longitudeApi}&units=imperial&appid=${apiKey}`;
@@ -82,12 +84,16 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi, stateApi) {
         method: 'GET',
         dataType: 'json',
         success: function(response) {
-            localStorage.setItem(stateApi, JSON.stringify(cityNameApi));
+
+            var randKey = Math.floor(Math.random() * 900) + 100;
+
+            localStorage.setItem(randKey, JSON.stringify(cityNameApi));
 
             todayTemp.text(`${response.list[0].main.temp} °F`);
             todayWind.text(`${response.list[0].wind.speed} MPH`);
             todayHumidity.text(`${response.list[0].main.humidity} %`);
 
+            //create img tag and assign the weather icon to it
             var cityHeaderImgTag = $('<img>');
             var todayIconUrl = `http://openweathermap.org/img/wn/${response.list[0].weather[0].icon}.png`;
             cityHeaderImgTag.attr('src', todayIconUrl);
@@ -95,6 +101,7 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi, stateApi) {
             cityHeaderImgTag.attr('id', 'todayWeatherIcon');
             cityHeader.append(cityHeaderImgTag);
 
+            //create card boxes for the 5-day weather forecast
             for (var i=7; i<response.list.length; i+=8) {
 
                 var date = dayjs();
@@ -109,7 +116,7 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi, stateApi) {
                 var humidity = response.list[i].main.humidity;
 
                 var div = $('<div></div>');
-                div.addClass('col-2 col-md-2 text-center');
+                div.addClass('col-2 col-md-2 text-center text-bg-dark');
 
                 var boldTag = $('<b></b>');
                 var dateSpanTag = $('<span></span>');
@@ -157,9 +164,17 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi, stateApi) {
 
 //function runs on page load
 $(function () {
+
+    //display local storage cities
     getLocalstorageCities();
+
+    //render current day using dayjs library
     renderCurrentDay();
+    
+    //searched city handler function
     userForm.on('submit', formSubmitHandler);
+
+    //city buttons click event handler
     savedCityList.on('click', '.btn', function(){
         var clicked = $(this).text();
         fiveDayContainer.empty();

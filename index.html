@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--css linked-->
-    <link rel="stylesheet" href="./assets/style.css" />
-
     <!-- Link the DayJS library -->
     <script
     src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
@@ -14,20 +11,25 @@
     crossorigin="anonymous">
     </script>
 
+    <!-- Link the Bootstrap library -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
     rel="stylesheet" 
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
     crossorigin="anonymous">
 
+    <!-- Link the JQuery UI library -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 
     <title>Weather Dashboard</title>
 </head>
+
 <body>
 
         <div class="row">
 
           <div class="col-md-3">
+
+            <!--Search bar and city list saved to local storage-->
             <div class="left-div">
 
                 <div class="p-2 g-col-6">
@@ -45,18 +47,23 @@
 
                     <hr>
                 </div>
-        
+                
+                <!--local storage items added to div as buttons-->
                 <div class="p-2 g-col-6 d-grid gap-2" id="savedCityList"></div>
               
             </div>
           </div>
 
           <div class="col-md-9">
+
+            <!--The current day and 5-day weather forecast-->
             <div class="right-div">
 
                 <div class="p-2 g-col-6">
+                    <!--City and current day updated-->
                     <h2 class="display-7" id="cityHeader"><span id="searchedCity"></span> <span id="todayDate"></span></h2>
                     <hr>
+                    <!--temperature, wind speed, and humidity updated-->
                     Temp: <span id="todayTemp"></span>
                     <hr>
                     Wind: <span id="todayWind"></span>
@@ -68,59 +75,9 @@
                     <h2 class="display-7">5-Day Forecast</h2>
 
                     <hr>
-
-                    <div class="d-flex flex-wrap justify-content-center gap-4" id="fiveDayContainer">
-                        <!--<div class="col-2 col-md-2 text-center">
-                            <b><span>(7/9/2023)</span></b>
-                            <hr>
-                            Temp: <span></span> °F
-                            <hr>
-                            Wind: <span></span> MPH
-                            <hr>
-                            Humidity: <span></span> %
-                            <hr>
-                        </div>
-                        <div class="col-2 col-md-2 text-center">
-                            <b><span>(7/9/2023)</span></b>
-                            <hr>
-                            Temp: <span></span> °F
-                            <hr>
-                            Wind: <span></span> MPH
-                            <hr>
-                            Humidity: <span></span> %
-                            <hr>
-                        </div>
-                        <div class="col-2 col-md-2 text-center">
-                            <b><span>(7/9/2023)</span></b>
-                            <hr>
-                            Temp: <span></span> °F
-                            <hr>
-                            Wind: <span></span> MPH
-                            <hr>
-                            Humidity: <span></span> %
-                            <hr>
-                        </div>
-                        <div class="col-2 col-md-2 text-center">
-                            <b><span>(7/9/2023)</span></b>
-                            <hr>
-                            Temp: <span></span> °F
-                            <hr>
-                            Wind: <span></span> MPH
-                            <hr>
-                            Humidity: <span></span> %
-                            <hr>
-                        </div>
-                        <div class="col-2 col-md-2 text-center">
-                            <b><span>(7/9/2023)</span></b>
-                            <hr>
-                            Temp: <span></span> °F
-                            <hr>
-                            Wind: <span></span> MPH
-                            <hr>
-                            Humidity: <span></span> %
-                            <hr>
-                        </div>-->
-                    </div>
+                    
+                    <!--5-day forecast-->
+                    <div class="d-flex flex-wrap justify-content-center gap-4" id="fiveDayContainer"></div>
                 </div>
 
             </div>
@@ -128,20 +85,16 @@
         
         </div>
 
-    
-
-
-
-    
-
     <!-- Link the JQuery library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
 
+    <!--Link the Bootstrap Library-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
     crossorigin="anonymous"></script>
 
+    <!--Link the JavaScript File-->
     <script src="./assets/script.js"></script>
 
 </body>
