@@ -54,3 +54,4 @@ My application's goal was to establish connection with geocoding API and open we
 
 ## Deployed Application
 
+https://hazkeel27.github.io/weather-dashboard/
