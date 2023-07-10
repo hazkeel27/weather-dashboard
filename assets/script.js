@@ -22,12 +22,13 @@ function formSubmitHandler(event) {
     event.preventDefault();
     fiveDayContainer.empty();
     cityHeader.find('img').remove();
-    geocodingApi();
+    var inputTagValue = inputTag.val();
+    geocodingApi(inputTagValue);
 }
 
-function cityButtonHandler() {
-    
-}
+//function cityButtonHandler(this) {
+
+//}
 
 function getLocalstorageCities() {
     for (var i=0; i<localStorage.length; i++) {
@@ -42,8 +43,7 @@ function getLocalstorageCities() {
     }
 }
 
-function geocodingApi() {
-    var inputTagValue = inputTag.val();
+function geocodingApi(inputTagValue) {
     var cityNameApi;
     var longitudeApi;
     var latitudeApi;
@@ -82,7 +82,6 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi, stateApi) {
         method: 'GET',
         dataType: 'json',
         success: function(response) {
-
             localStorage.setItem(stateApi, JSON.stringify(cityNameApi));
 
             todayTemp.text(`${response.list[0].main.temp} °F`);
@@ -161,5 +160,10 @@ $(function () {
     getLocalstorageCities();
     renderCurrentDay();
     userForm.on('submit', formSubmitHandler);
-    savedCityList.on('click', cityButtonHandler);
+    savedCityList.on('click', '.btn', function(){
+        var clicked = $(this).text();
+        fiveDayContainer.empty();
+        cityHeader.find('img').remove();
+        geocodingApi(clicked);
+    });
 });
