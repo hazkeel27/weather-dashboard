@@ -52,7 +52,7 @@ function geocodingApi(inputTagValue) {
     var stateApi;
 
     var apiKey = `471cc655335aaaad32557e7ce7d71113`;
-    var geocodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${inputTagValue}&limit=1&appid=${apiKey}`;
+    var geocodingUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${inputTagValue}&limit=1&appid=${apiKey}`;
 
     $.ajax({
         url: geocodingUrl,
