@@ -85,8 +85,6 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
 
             //check for duplicates in local storage
             $(function() {
-                var randKey = Math.floor(Math.random() * 900) + 100;
-
                 for (var i=0; i<localStorage.length; i++) {
                     var key = localStorage.key(i);
                     var value = localStorage.getItem(key);
@@ -95,6 +93,7 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
                         return;
                     }
                 }
+                var randKey = Math.floor(Math.random() * 900) + 100;
                 localStorage.setItem(randKey, JSON.stringify(cityNameApi));
             });
 
