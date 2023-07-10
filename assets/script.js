@@ -18,12 +18,22 @@ function renderCurrentDay() {
 }
 
 function formSubmitHandler(event) {
-    event.preventDefault();    
+    event.preventDefault();
+    fiveDayContainer.empty();
+    cityHeader.find('img').remove();
     geocodingApi();
 }
 
+function getCityName() {
+    var cityName;
+
+    cityName = inputTag.val()
+
+    return cityName;
+}
+
 function geocodingApi() {
-    var inputTagValue = inputTag.val();
+    var inputTagValue = getCityName();
     var cityNameApi;
     var longitudeApi;
     var latitudeApi;
@@ -69,6 +79,7 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
             var todayIconUrl = `http://openweathermap.org/img/wn/${response.list[0].weather[0].icon}.png`;
             cityHeaderImgTag.attr('src', todayIconUrl);
             cityHeaderImgTag.attr('alt', 'Weather Forecast Icon Display');
+            cityHeaderImgTag.attr('id', 'todayWeatherIcon');
             cityHeader.append(cityHeaderImgTag);
 
             for (var i=7; i<response.list.length; i+=8) {
@@ -77,6 +88,8 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
                 var dateText = response.list[i].dt_txt;
                 dateText = dateText.split(' ');
                 dateText = dateText[0];
+
+                var iconUrl = `http://openweathermap.org/img/wn/${response.list[i].weather[0].icon}.png`;
 
                 var temp = response.list[i].main.temp;
                 var wind = response.list[i].wind.speed;
@@ -90,10 +103,15 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
                 dateSpanTag.text(`(${dateText})`);
                 boldTag.append(dateSpanTag);
 
+                var iconImgTag = $('<img>');
+                iconImgTag.attr('src', iconUrl);
+                iconImgTag.attr('alt', 'Weather Forecast Icon Display');
+
                 var hrTag1 = $('<hr>');
                 var hrTag2 = $('<hr>');
                 var hrTag3 = $('<hr>');
                 var hrTag4 = $('<hr>');
+                var hrTag5 = $('<hr>');
 
                 var tempSpanTag = $('<span></span>');
                 tempSpanTag.text(`Temp: ${temp}  °F`);
@@ -106,19 +124,19 @@ function weatherForecastApi(cityNameApi, longitudeApi, latitudeApi) {
 
                 div.append(boldTag);
                 div.append(hrTag1);
-                div.append(tempSpanTag);
+                div.append(iconImgTag);
                 div.append(hrTag2);
-                div.append(windSpanTag);
+                div.append(tempSpanTag);
                 div.append(hrTag3);
-                div.append(humiditySpanTag);
+                div.append(windSpanTag);
                 div.append(hrTag4);
+                div.append(humiditySpanTag);
+                div.append(hrTag5);
 
                 fiveDayContainer.append(div);
 
                 console.log(`Date: ${dateText}, Temp: ${temp}, Humidity: ${humidity}, Wind: ${wind}`);
             }
-
-
             console.log(response);
         },
         error: function(jqXHR, textStatus, errorThrown) {
